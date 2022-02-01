@@ -326,8 +326,21 @@ services:
   rss-bridge:
     image: rssbridge/rss-bridge:2022-01-20
     container_name: 'rss-bridge'
+    # See RSS-Bridge docs for config files:
+    # Whitelist - https://github.com/RSS-Bridge/rss-bridge/wiki/Whitelisting
+    # Configuration - https://github.com/RSS-Bridge/rss-bridge/wiki/Custom-Configuration#timezone
     volumes:
       - ../config/rss-bridge:/config
-    ports:
-      - 3123:80
-    restart: unless-stopped
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the rss-bridge service at /v1/rss-bridge
+      - 'traefik.http.routers.rss_bridge.rule=PathPrefix(`/${API_VERSION}/rss-bridge`)'
+      # Specify the RSS-Bridge service port
+      - 'traefik.http.services.rss_bridge.loadbalancer.server.port=80'
+      # Add middleware to this route to strip the /v1/rss-bridge prefix
+      - 'traefik.http.middlewares.strip_rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
+      - 'traefik.http.middlewares.strip_rss_bridge_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.rss_bridge.middlewares=strip_rss_bridge_prefix'

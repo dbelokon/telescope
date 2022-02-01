@@ -10,7 +10,7 @@
 ; Find a list of supported timezones at
 ; https://www.php.net/manual/en/timezones.php
 ; timezone = "UTC" (default)
-timezone = "UTC"
+timezone = "EST"
 
 [cache]
 
@@ -34,7 +34,7 @@ email = ""
 ; and a "Donate" button in the HTML view of the bridges feed.
 ; true  = enabled (default)
 ; false = disabled
-donations = true
+donations = false
 
 [proxy]
 
