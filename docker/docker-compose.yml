@@ -340,7 +340,11 @@ services:
       - 'traefik.http.routers.rss_bridge.rule=PathPrefix(`/${API_VERSION}/rss-bridge`)'
       # Specify the RSS-Bridge service port
       - 'traefik.http.services.rss_bridge.loadbalancer.server.port=80'
-      # Add middleware to this route to strip the /v1/rss-bridge prefix
-      - 'traefik.http.middlewares.strip_rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
-      - 'traefik.http.middlewares.strip_rss_bridge_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.rss_bridge.middlewares=strip_rss_bridge_prefix'
+      # Define redirect middleware for any requests to /v1/rss-bridge -> /v1/rss-bridge/ (trailing slash)
+      - traefik.http.middlewares.rss_bridge_redirect.redirectregex.regex=(^.*\/rss-bridge$$)
+      - traefik.http.middlewares.rss_bridge_redirect.redirectregex.replacement=$$1/
+      - traefik.http.middlewares.rss_bridge_redirect.redirectregex.permanent=true
+      # Define prefix stripping middleware for any requests to /v1/rss-bridge/*
+      - 'traefik.http.middlewares.rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
+      # Add our middleware to the router
+      - 'traefik.http.routers.rss_bridge.middlewares=rss_bridge_redirect,rss_bridge_prefix'
