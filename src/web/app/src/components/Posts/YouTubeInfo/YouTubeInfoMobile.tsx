@@ -53,8 +53,16 @@ const YouTubeInfoMobile = () => {
               <AiOutlineYoutube className={classes.icon} /> Channel
             </a>
           </h2>
-          <p>{subscriberCount} subscribers</p>
-          <p>{viewCount} views</p>
+          {subscriberCount >= 0 && (
+            <p>
+              {subscriberCount} subscriber{subscriberCount !== 1 && 's'}
+            </p>
+          )}
+          {viewCount >= 0 && (
+            <p>
+              {viewCount} view{subscriberCount !== 1 && 's'}
+            </p>
+          )}
         </div>
       )}
     </ListSubheader>

@@ -27,7 +27,7 @@ import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
 import ShareButton from './ShareButton';
 import ExpandIcon from './ExpandIcon';
-import { Post } from '../../interfaces';
+import { Post, extractVideoId } from '../../interfaces';
 
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
@@ -287,9 +287,6 @@ const extractBlogClassName = (url: string) => {
     return 'is-generic';
   }
 };
-
-// a 'guid' from a YouTube video is usually written as 'yt:video:id'
-const extractVideoId = (post: Post): string => post.guid.split(':')[2];
 
 /**
  * Destroys all the .zoomed-image-container elements in the DOM

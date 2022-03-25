@@ -29,6 +29,7 @@ services:
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
         - STATUS_URL=${STATUS_URL}
+        - YOUTUBE_API_KEY=${YOUTUBE_API_KEY}
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:

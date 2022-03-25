@@ -15,6 +15,9 @@ const searchServiceUrl = process.env.NEXT_PUBLIC_SEARCH_URL;
 const feedDiscoveryServiceUrl = process.env.NEXT_PUBLIC_FEED_DISCOVERY_URL;
 const statusUrl = process.env.NEXT_PUBLIC_STATUS_URL;
 
+// The API keys we use for our 3rd party services
+const youTubeApiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+
 // Github sha commit
 const gitCommitSha = process.env.NEXT_PUBLIC_GIT_COMMIT;
 
@@ -50,4 +53,5 @@ export {
   feedDiscoveryServiceUrl,
   statusUrl,
   gitCommitSha,
+  youTubeApiKey,
 };

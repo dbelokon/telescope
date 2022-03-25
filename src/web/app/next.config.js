@@ -28,6 +28,7 @@ const envVarsToForward = [
   'FEED_DISCOVERY_URL',
   'STATUS_URL',
   'GIT_COMMIT',
+  'YOUTUBE_API_KEY',
 ];
 
 // Copy an existing ENV Var so it's visible to next: API_URL -> NEXT_PUBLIC_API_URL

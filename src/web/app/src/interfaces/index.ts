@@ -17,6 +17,10 @@ export type Post = {
   type: 'blogpost' | 'video';
 };
 
+// a 'guid' from a YouTube video is usually written as 'yt:video:id'
+export const extractVideoId = (post: Post): string =>
+  post.type === 'video' ? post.guid.split(':')[2] : '';
+
 export type SignUpForm = {
   displayName: string;
   firstName: string;

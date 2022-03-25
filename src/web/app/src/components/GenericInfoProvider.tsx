@@ -1,7 +1,7 @@
 import { createContext, useMemo, ReactNode } from 'react';
 import { Post } from '../interfaces';
 import { GitHubInfoContextInterface, extractGitHubInfo } from './GitHubInfo';
-import { YouTubeInfoContextInterface, extractYouTubeInfo } from './YouTubeInfo';
+import { YouTubeInfoContextInterface, useYouTubeApi } from './YouTubeInfo';
 
 type GenericInfoContextInterface = {
   gitHubInfo: GitHubInfoContextInterface;
@@ -29,12 +29,14 @@ type Props = {
 };
 
 const GenericInfoProvider = ({ children, post }: Props) => {
-  const genericInfo = useMemo(() => {
-    return {
-      gitHubInfo: extractGitHubInfo(post),
-      youTubeInfo: extractYouTubeInfo(post),
-    };
-  }, [post]);
+  const youTubeInfo = useYouTubeApi(post);
+
+  const gitHubInfo = useMemo(() => extractGitHubInfo(post), [post]);
+
+  const genericInfo = {
+    gitHubInfo,
+    youTubeInfo,
+  };
 
   return <GenericInfoContext.Provider value={genericInfo}>{children}</GenericInfoContext.Provider>;
 };
